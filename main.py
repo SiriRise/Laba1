@@ -42,7 +42,8 @@ try:
                     for j in range(len(set(con_line))):
                         if con_line[j] != " ":
                             con_num.append(con_line[j])
-                            print(number_by_word(con_line[j]))
+                            print(number_by_word(con_line[j]),end=" ")
+                    print(" ")
         else:
             word += 1
 
