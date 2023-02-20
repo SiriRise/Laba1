@@ -7,7 +7,6 @@ slovar = {"0": "ноль", "1": "один", "2": "два", "3": "три", "4": "
 try:
     buffer_len = 1
     work_buffer = ""
-    work_buffer_len = buffer_len
     with open("text.txt", "r") as file:
         buffer = file.read(buffer_len)
         if not buffer:
