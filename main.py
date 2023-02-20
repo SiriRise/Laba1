@@ -25,7 +25,7 @@ try:
                 for i in range (len(work_buffer)):
                     if work_buffer[i] == 9 or work_buffer == 8:
                         f_b = False
-                if len(work_buffer)> 1:
+                if f_b and len(work_buffer)> 1:
                     if len(work_buffer) < 5 and int(work_buffer) % 2 != 0 and int(work_buffer,8) <= 2048:
                         if len(set(work_buffer)) >= diff_number:
                             good += 1
