@@ -1,58 +1,43 @@
-#Восьмиричные числа не превышающие 2048 в десятичной системе счисления.Выводит на экран нечетные числа, использующие не менее К разных цифр.
+#Восьмиричные числа не превышающие 2048 в десятичной системе счисления.
+#Выводит на экран нечетные числа, использующие не менее К разных цифр.
 #Список используемых цифр выводится отдельно прописью.
-import os
 
 slovar = {"0": "ноль", "1": "один", "2": "два", "3": "три", "4": "четыре", "5": "пять", "6": "шесть", "7": "семь"}
 
-def number_by_word(number):
-    return slovar[number]
-
-file_name = "text.txt"
-
 try:
-    file = open(file_name).read()
+    buffer_len = 1
+    work_buffer = ""
+    work_buffer_len = buffer_len
+    with open("text.txt", "r") as file:
+        buffer = file.read(buffer_len)
+        if not buffer:
+            print("Файл пуст")
+            exit()
+        print("Введите количество разных цифр")
+        diff_number = int(input())
+        good = 0
+        while buffer:
+            while buffer >= "0" and buffer <= "7":
+                if buffer >= "0" and buffer <= "7":
+                    work_buffer += buffer
+                buffer = file.read(buffer_len)
+            if len(work_buffer) > 0:
+                f_b = True
+                for i in range (len(work_buffer)):
+                    if work_buffer[i] == 9 or work_buffer == 8:
+                        f_b = False
+                if len(work_buffer)> 1:
+                    if len(work_buffer) < 5 and int(work_buffer) % 2 != 0 and int(work_buffer,8) <= 2048:
+                        if len(set(work_buffer)) >= diff_number:
+                            good += 1
+                            print(work_buffer)
+                            num = ("".join(sorted(set(work_buffer), key=work_buffer.index)))
+                            for j in range (len(num)):
+                                print(slovar[(num[j])], end=" ")
+                            print()
+            work_buffer = ""
+            buffer = file.read(buffer_len)
+        if good == 0:
+            print('нет подходящих чисел')
 except FileNotFoundError:
-    print("Файл не обнаружен")
-    exit()
-
-if os.stat(file_name).st_size == 0:
-    print("Файл пустой")
-    exit()
-
-try:
-    while True:
-        try:
-            print("Введите количество разных цифр")
-            diff_number = int(input())
-        except ValueError:
-            print("Вы ввели не цифру")
-            continue
-        break
-    great = 0
-    for i in file.split():
-        word = 0
-        if i.isdigit() == True:
-            num = int(i, 8)
-            if num <= 2048 and int(i) % 2 != 0:
-                if diff_number <= len(set(i)):
-                    print(i)
-                    great += 1
-                    con_line = i
-                    con_num = []
-                    for j in range(len(set(con_line))):
-                        if con_line[j] != " ":
-                            con_num.append(con_line[j])
-                            print(number_by_word(con_line[j]),end=" ")
-                    print(" ")
-        else:
-            word += 1
-
-    if great > 0:
-        exit()
-    elif great == 0 and word == 0:
-        print("Нет подходящих чисел")
-    elif word>0 and great == 0:
-        print("В файле нет чисел")
-except ValueError:
-    print("В файле есть не восьмеричные числа")
-
+    print('Файл не найден')
