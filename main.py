@@ -12,21 +12,29 @@ try:
         if not buffer:
             print("Файл пуст")
             exit()
-        print("Введите количество разных цифр")
-        diff_number = int(input())
+
+
+        diff_number = int(input("Количество разных цифр: "))
+        while 0 > diff_number or diff_number > 9:
+            diff_number = int\
+                (input("Количество разных цифр: "))
         good = 0
         while buffer:
+
             while buffer >= "0" and buffer <= "7":
                 if buffer >= "0" and buffer <= "7":
                     work_buffer += buffer
+
                 buffer = file.read(buffer_len)
+
             if len(work_buffer) > 0:
+
                 f_b = True
                 for i in range (len(work_buffer)):
                     if work_buffer[i] == 9 or work_buffer == 8:
                         f_b = False
                 if f_b and len(work_buffer) > 0:
-                    if len(work_buffer) < 5 and int(work_buffer) % 2 != 0 and int(work_buffer,8) <= 2048:
+                    if len(work_buffer) < 5 and int(work_buffer) % 2 != 0 and int(work_buffer, 8) <= 2048:
                         if len(set(work_buffer)) >= diff_number:
                             good += 1
                             print(work_buffer)
@@ -37,6 +45,6 @@ try:
             work_buffer = ""
             buffer = file.read(buffer_len)
         if good == 0:
-            print('нет подходящих чисел')
+            print("нет подходящих чисел")
 except FileNotFoundError:
-    print('Файл не найден')
+    print("Файл не найден")
